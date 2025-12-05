@@ -7,13 +7,6 @@
 
 O sistema desenvolvido gerencia o acervo e empréstimos de uma biblioteca acadêmica do IFPB.
 
-**Problema identificado:** Atualmente, o controle de empréstimos é feito de forma manual ou com planilhas simples, o que dificulta:
-- Controlar diferentes tipos de usuários (alunos, professores, funcionários) com limites distintos
-- Gerenciar diferentes tipos de itens (livros, revistas, teses) com prazos e multas específicas
-- Calcular multas automaticamente considerando descontos por categoria de usuário
-- Notificar usuários sobre empréstimos e devoluções
-- Ter visibilidade dos itens disponíveis e empréstimos ativos
-
 **Objetivo do sistema:**
 - Registrar usuários de diferentes categorias com limites específicos de empréstimo
 - Cadastrar itens do acervo (livros, revistas, teses) com características próprias
