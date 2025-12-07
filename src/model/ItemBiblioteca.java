@@ -1,11 +1,13 @@
 
-public abstract class ItemBiblioteca {
-    protected String titulo;
-    protected String codigo;
-    protected boolean disponivel = true;
-    protected int diasEmprestimo;
+package model;
 
-    public ItemBiblioteca(String titulo, String codigo, int diasEmprestimo) {
+public abstract class ItemBiblioteca {
+    private final String titulo;
+    private final String codigo;
+    private boolean disponivel = true;
+    private final int diasEmprestimo;
+
+    protected ItemBiblioteca(String titulo, String codigo, int diasEmprestimo) {
         this.titulo = titulo;
         this.codigo = codigo;
         this.diasEmprestimo = diasEmprestimo;

@@ -1,5 +1,6 @@
+package model;
 public class NotificacaoSMS implements Notificavel {
-    private String telefone;
+    private final String telefone;
 
     public NotificacaoSMS(String telefone) {
         this.telefone = telefone;
@@ -7,7 +8,8 @@ public class NotificacaoSMS implements Notificavel {
 
     @Override
     public void notificar(String mensagem) {
-        System.out.println("\n[📱 SMS para " + telefone + "]");
+        System.out.println();
+        System.out.println("[SMS para " + telefone + "]");
         System.out.println("   " + mensagem);
     }
 }

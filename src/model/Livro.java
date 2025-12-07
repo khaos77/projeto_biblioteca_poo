@@ -1,6 +1,8 @@
+package model;
+
 public class Livro extends ItemBiblioteca {
-    private String autor;
-    private long isbn;
+    private final String autor;
+    private final long isbn;
 
     public Livro(String titulo, String autor, String codigo, long isbn) {
         super(titulo, codigo, 14); // 14 dias para livros

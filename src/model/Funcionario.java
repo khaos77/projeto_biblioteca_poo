@@ -1,5 +1,7 @@
+package model;
+
 public class Funcionario extends Usuario {
-    private String setor;
+    private final String setor;
 
     public Funcionario(String nome, long matricula, String setor) {
         super(nome, matricula, 4); // Funcionários podem pegar até 4 itens

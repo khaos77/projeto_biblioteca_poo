@@ -1,5 +1,7 @@
+package model;
+
 public class NotificacaoEmail implements Notificavel {
-    private String emailDestino;
+    private final String emailDestino;
 
     public NotificacaoEmail(String emailDestino) {
         this.emailDestino = emailDestino;
@@ -7,7 +9,7 @@ public class NotificacaoEmail implements Notificavel {
 
     @Override
     public void notificar(String mensagem) {
-        System.out.println("\n[📧 EMAIL para " + emailDestino + "]");
+        System.out.println("[EMAIL para " + emailDestino + "]");
         System.out.println("   " + mensagem);
     }
 }
