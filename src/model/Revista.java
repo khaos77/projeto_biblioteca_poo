@@ -1,6 +1,8 @@
+package model;
+
 public class Revista extends ItemBiblioteca {
-    private int edicao;
-    private String mesAno;
+    private final int edicao;
+    private final String mesAno;
 
     public Revista(String titulo, String codigo, int edicao, String mesAno) {
         super(titulo, codigo, 7); // 7 dias para revistas

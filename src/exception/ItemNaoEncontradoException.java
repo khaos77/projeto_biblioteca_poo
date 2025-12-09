@@ -1,3 +1,4 @@
+package exception;
 
 public class ItemNaoEncontradoException extends Exception {
     public ItemNaoEncontradoException(String mensagem) {

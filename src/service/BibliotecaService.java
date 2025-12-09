@@ -1,19 +1,14 @@
-import java.util.ArrayList;
-import java.util.List;
+package service;
+import exception.*;
+import model.*;
+import java.util.*;
 
-import exception.ItemIndisponivelException;
-import exception.ItemNaoEncontradoException;
-import exception.LimiteEmprestimoException;
-import exception.UsuarioNaoEncontradoException;
-import model.Emprestimo;
-import model.ItemBiblioteca;
-import model.Notificavel;
-import model.Usuario;
+
 
 public class BibliotecaService {
-    private List<Usuario> usuarios;
-    private List<ItemBiblioteca> itens;
-    private List<Emprestimo> emprestimos;
+    private List<Usuario> usuarios = new ArrayList<>();
+    private List<ItemBiblioteca> itens = new ArrayList<>();
+    private List<Emprestimo> emprestimos = new ArrayList<>();
 
     public BibliotecaService() {
         this.usuarios = new ArrayList<>();
@@ -41,7 +36,7 @@ public class BibliotecaService {
     // Sobrecarga 3: buscar item por código
     public ItemBiblioteca buscarItem(String codigo) throws ItemNaoEncontradoException {
         for (ItemBiblioteca item : itens) {
-            if (item.getCodigo().equals(codigo)) {
+            if (item.getCodigo().equalsIgnoreCase(codigo)) {
                 return item;
             }
         }
@@ -49,10 +44,13 @@ public class BibliotecaService {
     }
 
     // Sobrecarga 4: buscar itens por título (parcial)
-    public List<ItemBiblioteca> buscarItem(String titulo, boolean buscarPorTitulo) {
+    public List<ItemBiblioteca> buscarItem(String tituloParcial, boolean buscarPorTitulo) {
         List<ItemBiblioteca> resultado = new ArrayList<>();
+        if (!buscarPorTitulo){
+            return resultado;
+        }
         for (ItemBiblioteca item : itens) {
-            if (item.getTitulo().toLowerCase().contains(titulo.toLowerCase())) {
+            if (item.getTitulo().toLowerCase().contains(tituloParcial.toLowerCase())) {
                 resultado.add(item);
             }
         }
@@ -76,6 +74,10 @@ public class BibliotecaService {
 
     public void listarUsuarios() {
         System.out.println("\n=== USUÁRIOS CADASTRADOS ===");
+        if (usuarios.isEmpty()){
+            System.out.println(" Nennhum usuário cadastrado.");
+            return;
+        }
         for (Usuario u : usuarios) {
             System.out.println("  " + u + " - Empréstimos ativos: " + u.totalEmprestimosAtivos());
         }
@@ -117,18 +119,22 @@ public class BibliotecaService {
         return emprestimo;
     }
 
-    public void listarEmprestimosUsuario(long matricula) throws UsuarioNaoEncontradoException {
+    public void listarEmprestimosUsuario(long matricula) 
+            throws UsuarioNaoEncontradoException {
         Usuario usuario = buscarUsuario(matricula);
         System.out.println("\n=== EMPRÉSTIMOS DE " + usuario.getNome() + " ===");
         
-        if (usuario.getEmprestimos().isEmpty()) {
-            System.out.println("  Nenhum empréstimo registrado.");
-        } else {
-            for (Emprestimo e : usuario.getEmprestimos()) {
-                System.out.println("  " + e);
+        List<Emprestimo> lista = usuario.getEmprestimos();
+        if (lista.isEmpty()){
+            System.out.println("  Nenhum emprestimo registrado.");
+        }else{
+            for(Emprestimo e : lista){
+                System.out.println(" " + e);
             }
-            System.out.println("\nTotal de multas: R$ " + String.format("%.2f", usuario.totalMultas()));
+            System.out.println("\nTotal de multas: R$ "
+                + String.format("%.2f", usuario.totalMultas()));
         }
+
     }
 
     public void listarEmprestimosAtivos() {
@@ -145,17 +151,27 @@ public class BibliotecaService {
         }
     }
      public Emprestimo buscarEmprestimoAtivo(long matricula, String codigoItem) 
-            throws UsuarioNaoEncontradoException, ItemNaoEncontradoException {
+            throws UsuarioNaoEncontradoException, ItemNaoEncontradoException, EmprestimoNaoEncontradoException {
         Usuario usuario = buscarUsuario(matricula);
         ItemBiblioteca item = buscarItem(codigoItem);
         
         for (Emprestimo e : emprestimos) {
-            if (e.getUsuario().getMatricula() == matricula && 
-                e.getItem().getCodigo().equals(codigoItem) && 
-                !e.isFinalizado()) {
-                return e;
-            }
+            if(!e.isFinalizado() && e.getUsuario().getMatricula() == usuario.getMatricula()
+                && e.getItem().getCodigo().equalsIgnoreCase(item.getCodigo())){
+               return e;  
+              } 
         }
-        return null;
+              throw new EmprestimoNaoEncontradoException(
+                "nenhum emprestimo ativo encontrado para o item " + codigoItem + " e ususario " + matricula + ".");
+              }
+        public Emprestimo devolverItem(long matricula, String codigoItem, int diasAtraso)
+               throws UsuarioNaoEncontradoException, ItemNaoEncontradoException, EmprestimoNaoEncontradoException {
+
+                Emprestimo emp= buscarEmprestimoAtivo(matricula, codigoItem);
+                Date dataDevolucao = new Date(
+                    emp.getDataPrevista().getTime() + (diasAtraso * 24L * 60 * 60 * 1000));
+                emp.devolver(dataDevolucao);   
+                return emp;
+        
     }
 }

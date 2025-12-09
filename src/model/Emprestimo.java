@@ -1,15 +1,19 @@
+package model;
+
 import java.util.Date;
 import java.text.SimpleDateFormat;
 
 public class Emprestimo {
-    private Usuario usuario;
-    private ItemBiblioteca item;
-    private Date dataEmprestimo;
-    private Date dataPrevista;
+    private final Usuario usuario;
+    private final ItemBiblioteca item;
+    private final Date dataEmprestimo;
+    private final Date dataPrevista;
     private Date dataDevolucao;
     private boolean finalizado = false;
-    private SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-    private double multa = 0;
+    private double multa = 0.0;
+
+    private static final SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+
 
     public Emprestimo(Usuario usuario, ItemBiblioteca item) {
         this.usuario = usuario;
@@ -39,6 +43,10 @@ public class Emprestimo {
         return dataPrevista;
     }
 
+    public Date getDataDevolucao(){
+        return dataDevolucao;
+    }
+
     public boolean isFinalizado() {
         return finalizado;
     }
@@ -47,12 +55,12 @@ public class Emprestimo {
         return multa;
     }
 
-    public void devolver(Date dataDev) {
-        this.dataDevolucao = dataDev;
+    public void devolver(Date dataDevolucao) {
+        this.dataDevolucao = dataDevolucao;
         this.finalizado = true;
         this.item.setDisponivel(true);
 
-        long diff = dataDev.getTime() - dataPrevista.getTime();
+        long diff = dataDevolucao.getTime() - dataPrevista.getTime();
         long diasAtraso = diff / (1000 * 60 * 60 * 24);
         
         if (diasAtraso > 0) {
@@ -64,7 +72,9 @@ public class Emprestimo {
 
     @Override
     public String toString() {
-        String texto = item.getTitulo() + " | Empréstimo: " + sdf.format(dataEmprestimo) + " | Previsão: " + sdf.format(dataPrevista);
+        String texto = item.getTitulo() 
+        + " | Empréstimo: " + sdf.format(dataEmprestimo) 
+        + " | Previsão: " + sdf.format(dataPrevista);
         if (finalizado) {
             texto += " | Devolvido: " + sdf.format(dataDevolucao);
             if (multa > 0) {

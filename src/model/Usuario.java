@@ -1,17 +1,18 @@
+package model;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public abstract class Usuario {
-    protected String nome;
-    protected long matricula;
-    protected List<Emprestimo> emprestimos;
-    protected int limiteEmprestimos;
+    private final String nome;
+    private final long matricula;
+    private final List<Emprestimo> emprestimos = new ArrayList<>();
+    private final int limiteEmprestimos;
 
     public Usuario(String nome, long matricula, int limiteEmprestimos) {
         this.nome = nome;
         this.matricula = matricula;
         this.limiteEmprestimos = limiteEmprestimos;
-        this.emprestimos = new ArrayList<>();
     }
 
     public String getNome() {
@@ -27,7 +28,7 @@ public abstract class Usuario {
     }
 
     public List<Emprestimo> getEmprestimos() {
-        return emprestimos;
+        return new ArrayList<>(emprestimos);
     }
 
     public void adicionarEmprestimo(Emprestimo e) {

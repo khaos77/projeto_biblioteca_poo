@@ -1,5 +1,7 @@
+package model;
+
 public class Professor extends Usuario {
-    private String departamento;
+    private final String departamento;
 
     public Professor(String nome, long matricula, String departamento) {
         super(nome, matricula, 5); // Professores podem pegar até 5 itens

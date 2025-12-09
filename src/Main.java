@@ -1,5 +1,8 @@
-import java.util.Scanner;
-import java.util.Date;
+import model.*;
+import service.BibliotecaService;
+import exception.*;
+
+import java.util.*;
 
 public class Main {
     
@@ -19,8 +22,9 @@ public class Main {
             try {
                 exibirMenu();
                 String linha = scanner.nextLine().trim();
-                
-                if (linha.isEmpty()) continue;
+                if (linha.isEmpty()){
+                    continue;
+                }
                 
                 int opcao = Integer.parseInt(linha);
                 
@@ -70,7 +74,7 @@ public class Main {
                 System.out.println("Pressione ENTER para continuar...");
                 scanner.nextLine();
             } catch (ItemIndisponivelException | LimiteEmprestimoException | 
-                     UsuarioNaoEncontradoException | ItemNaoEncontradoException e) {
+                     UsuarioNaoEncontradoException | ItemNaoEncontradoException | EmprestimoNaoEncontradoException e) {
                 System.out.println("\n✗ " + e.getMessage());
                 System.out.println("Pressione ENTER para continuar...");
                 scanner.nextLine();
@@ -85,9 +89,9 @@ public class Main {
     }
     
     private static void exibirMenu() {
-        System.out.println("\n" + "=".repeat(50));
+        System.out.println("\n======================================================");
         System.out.println("                    MENU PRINCIPAL");
-        System.out.println("=".repeat(50));
+        System.out.println("========================================================");
         System.out.println("1 - Realizar empréstimo");
         System.out.println("2 - Listar itens disponíveis");
         System.out.println("3 - Listar todos os itens");
@@ -98,12 +102,13 @@ public class Main {
         System.out.println("8 - Cadastrar novo usuário");
         System.out.println("9 - Devolver item");
         System.out.println("0 - Sair");
-        System.out.println("=".repeat(50));
+        System.out.println("========================================================");
         System.out.print("Opção: ");
     }
     
     private static void realizarEmprestimo(Scanner scanner, BibliotecaService biblioteca) 
-            throws Exception {
+             throws ItemIndisponivelException, LimiteEmprestimoException,
+                   UsuarioNaoEncontradoException, ItemNaoEncontradoException {
         
         System.out.println("\n--- REALIZAR EMPRÉSTIMO ---");
         
@@ -132,7 +137,7 @@ public class Main {
     }
     
     private static void consultarEmprestimos(Scanner scanner, BibliotecaService biblioteca) 
-            throws Exception {
+            throws UsuarioNaoEncontradoException {
         
         System.out.println("\n--- CONSULTAR EMPRÉSTIMOS ---");
         System.out.print("Matrícula do usuário: ");
@@ -142,7 +147,8 @@ public class Main {
     }
     
     private static void devolverItem(Scanner scanner, BibliotecaService biblioteca) 
-            throws Exception {
+            throws UsuarioNaoEncontradoException, ItemNaoEncontradoException,
+                   EmprestimoNaoEncontradoException {
         
         System.out.println("\n--- DEVOLVER ITEM ---");
         
@@ -151,27 +157,20 @@ public class Main {
         
         System.out.print("Código do item: ");
         String codigo = scanner.nextLine();
-        
-        Emprestimo emp = biblioteca.buscarEmprestimoAtivo(matricula, codigo);
-        
-        if (emp == null) {
-            System.out.println("\n✗ Nenhum empréstimo ativo encontrado para este item e usuário.");
-            return;
-        }
-        
+
         System.out.print("Dias de atraso (0 se no prazo): ");
         int diasAtraso = Integer.parseInt(scanner.nextLine());
         
-        Date dataDevolucao = new Date(emp.getDataPrevista().getTime() + (diasAtraso * 24L * 60 * 60 * 1000));
-        emp.devolver(dataDevolucao);
+        Emprestimo emp = biblioteca.devolverItem(matricula, codigo, diasAtraso);
         
-        System.out.println("\n✓ Item devolvido com sucesso!");
-        if (emp.getMulta() > 0) {
+        System.out.println("\nItem devolvido com sucesso!");
+        if(emp.getMulta() > 0){
             System.out.println("  Multa aplicada: R$ " + String.format("%.2f", emp.getMulta()));
-        } else {
+        }else{
             System.out.println("  Devolução no prazo - sem multa.");
         }
     }
+        
     
     private static void cadastrarNovoItem(Scanner scanner, BibliotecaService biblioteca) {
         System.out.println("\n--- CADASTRAR NOVO ITEM ---");
@@ -273,5 +272,5 @@ public class Main {
         System.out.println("  - 4 usuários cadastrados");
         System.out.println("  - 6 itens no acervo");
     }
-}   
- 
+} 
+
