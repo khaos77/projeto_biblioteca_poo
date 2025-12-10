@@ -336,42 +336,38 @@ O sistema atende plenamente aos requisitos propostos, demonstrando domínio dos 
 
 ### Estrutura de Pacotes
 ```
-src/
-└── br/
-    └── edu/
-        └── ifpb/
-            └── biblioteca/
-                ├── model/
-                │   ├── ItemBiblioteca.java
-                │   ├── Livro.java
-                │   ├── Revista.java
-                │   ├── Tese.java
-                │   ├── Usuario.java
-                │   ├── Aluno.java
-                │   ├── Professor.java
-                │   ├── Funcionario.java
-                │   ├── Emprestimo.java
-                │   ├── Notificavel.java
-                │   ├── NotificacaoEmail.java
-                │   └── NotificacaoSMS.java
-                ├── service/
-                │   └── BibliotecaService.java
-                ├── exception/
-                │   ├── ItemIndisponivelException.java
-                │   ├── LimiteEmprestimoException.java
-                │   ├── UsuarioNaoEncontradoException.java
-                │   └── ItemNaoEncontradoException.java
-                └── view/
-                    └── MainBiblioteca.java
+src/ 
+    └── model/
+    │   ├── ItemBiblioteca.java
+    │   ├── Livro.java
+    │   ├── Revista.java
+    │   ├── Tese.java
+    │   ├── Usuario.java
+    │   ├── Aluno.java
+    │   ├── Professor.java
+    │   ├── Funcionario.java
+    │   ├── Emprestimo.java
+    │   ├── Notificavel.java
+    │   ├── NotificacaoEmail.java
+    │   └── NotificacaoSMS.java
+    ├── service/
+    │   └── BibliotecaService.java
+    ├── exception/
+    │   ├── ItemIndisponivelException.java
+    │   ├── LimiteEmprestimoException.java
+    │   ├── UsuarioNaoEncontradoException.java
+    │   └── ItemNaoEncontradoException.java
+    └── view/
+        └── Main.java
 ```
 
 ### Comandos
 ```bash
 # Compilar
-javac -d bin src/br/edu/ifpb/biblioteca/**/*.java
+javac -encoding UTF-8 -d ../bin exception/*.java model/*.java service/*.java Main.java
 
 # Executar
-java -cp bin br.edu.ifpb.biblioteca.view.MainBiblioteca
+java -cp ../bin Main
 ```
 
 ---
