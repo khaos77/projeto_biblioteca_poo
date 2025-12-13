@@ -16,14 +16,14 @@ public class BibliotecaService {
         this.emprestimos = new ArrayList<>();
     }
 
-    // ========== MÉTODOS COM SOBRECARGA ==========
+
     
-    // Sobrecarga 1: listar todos os itens
+    
     public void listarItens() {
         listarItens(false);
     }
 
-    // Sobrecarga 2: listar apenas disponíveis
+    
     public void listarItens(boolean apenasDisponiveis) {
         System.out.println("\n=== CATÁLOGO DE ITENS ===");
         for (ItemBiblioteca item : itens) {
@@ -33,7 +33,7 @@ public class BibliotecaService {
         }
     }
 
-    // Sobrecarga 3: buscar item por código
+    
     public ItemBiblioteca buscarItem(String codigo) throws ItemNaoEncontradoException {
         for (ItemBiblioteca item : itens) {
             if (item.getCodigo().equalsIgnoreCase(codigo)) {
@@ -43,7 +43,7 @@ public class BibliotecaService {
         throw new ItemNaoEncontradoException("Item com código " + codigo + " não encontrado.");
     }
 
-    // Sobrecarga 4: buscar itens por título (parcial)
+    
     public List<ItemBiblioteca> buscarItem(String tituloParcial, boolean buscarPorTitulo) {
         List<ItemBiblioteca> resultado = new ArrayList<>();
         if (!buscarPorTitulo){
@@ -57,7 +57,7 @@ public class BibliotecaService {
         return resultado;
     }
 
-    // ========== GERENCIAMENTO DE USUÁRIOS ==========
+    
 
     public void cadastrarUsuario(Usuario usuario) {
         usuarios.add(usuario);
@@ -83,13 +83,13 @@ public class BibliotecaService {
         }
     }
 
-    // ========== GERENCIAMENTO DE ITENS ==========
+
 
     public void cadastrarItem(ItemBiblioteca item) {
         itens.add(item);
     }
 
-    // ========== EMPRÉSTIMOS ==========
+
 
     public Emprestimo realizarEmprestimo(long matricula, String codigoItem, Notificavel notificacao) 
             throws UsuarioNaoEncontradoException, ItemNaoEncontradoException, 
@@ -98,7 +98,7 @@ public class BibliotecaService {
         Usuario usuario = buscarUsuario(matricula);
         ItemBiblioteca item = buscarItem(codigoItem);
 
-        // Validações
+        
         if (!item.isDisponivel()) {
             throw new ItemIndisponivelException("O item '" + item.getTitulo() + "' não está disponível.");
         }
@@ -107,11 +107,11 @@ public class BibliotecaService {
         usuario.getLimiteEmprestimos() + " empréstimos simultâneos.");
         }
 
-        // Criar empréstimo
+        
         Emprestimo emprestimo = new Emprestimo(usuario, item);
         emprestimos.add(emprestimo);
 
-        // Notificar
+        
         if (notificacao != null) {
             notificacao.notificar("Empréstimo realizado: " + item.getTitulo() + " para " + usuario.getNome());
         }

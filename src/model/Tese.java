@@ -14,15 +14,15 @@ public class Tese extends ItemBiblioteca {
 
     public String getAutor(){
         return autor;
-    } //adicionada
+    } 
 
     public String getOrientador(){
         return orientador;
-    } // adicionada
+    } 
 
     public int getAno(){
         return ano;
-    } // adiconada
+    } 
 
     @Override
     public double calcularMultaPorDia() {
@@ -35,5 +35,5 @@ public class Tese extends ItemBiblioteca {
          " - Autor: " + autor + 
          " | Orientador : " + orientador + 
          " | Ano: " + ano;
-    } // adicionado e usado orientador colocado no construtor
+    } 
 }

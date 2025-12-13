@@ -4,7 +4,7 @@ public class Funcionario extends Usuario {
     private final String setor;
 
     public Funcionario(String nome, long matricula, String setor) {
-        super(nome, matricula, 4); // Funcionários podem pegar até 4 itens
+        super(nome, matricula, 4); 
         this.setor = setor;
     }
 
@@ -14,7 +14,7 @@ public class Funcionario extends Usuario {
 
     @Override
     public double aplicarDescontoMulta(double multaOriginal) {
-        return multaOriginal * 0.7; // 30% de desconto
+        return multaOriginal * 0.7; 
     }
 
     @Override

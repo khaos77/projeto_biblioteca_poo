@@ -65,7 +65,7 @@ public class Emprestimo {
         
         if (diasAtraso > 0) {
             double multaBase = diasAtraso * item.calcularMultaPorDia();
-            // Aplica desconto do tipo de usuário
+        
             multa = usuario.aplicarDescontoMulta(multaBase);
         }
     }

@@ -5,7 +5,7 @@ public class Livro extends ItemBiblioteca {
     private final long isbn;
 
     public Livro(String titulo, String autor, String codigo, long isbn) {
-        super(titulo, codigo, 14); // 14 dias para livros
+        super(titulo, codigo, 14); 
         this.autor = autor;
         this.isbn = isbn;
     }
@@ -20,7 +20,7 @@ public class Livro extends ItemBiblioteca {
 
     @Override
     public double calcularMultaPorDia() {
-        return 1.00; // R$ 1,00 por dia de atraso
+        return 1.00; 
     }
 
     @Override

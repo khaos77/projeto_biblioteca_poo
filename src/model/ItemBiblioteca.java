@@ -33,7 +33,7 @@ public abstract class ItemBiblioteca {
         return diasEmprestimo;
     }
 
-    // Método abstrato - cada tipo de item calcula multa diferente
+    
     public abstract double calcularMultaPorDia();
 
     @Override

@@ -14,9 +14,9 @@ public class Main {
         
         boolean executando = true;
         
-        System.out.println("\n╔════════════════════════════════════════╗");
-        System.out.println("║  SISTEMA DE BIBLIOTECA - IFPB         ║");
-        System.out.println("╚════════════════════════════════════════╝");
+        System.out.println("\n════════════════════════════════════════");
+        System.out.println("      SISTEMA DE BIBLIOTECA - IFPB         ");
+        System.out.println(" ════════════════════════════════════════");
         
         while (executando) {
             try {
@@ -58,10 +58,10 @@ public class Main {
                         break;
                     case 0:
                         executando = false;
-                        System.out.println("\n✓ Sistema encerrado. Até logo!");
+                        System.out.println("\n Sistema encerrado. Até logo!");
                         break;
                     default:
-                        System.out.println("\n✗ Opção inválida. Tente novamente.");
+                        System.out.println("\nX - Opção inválida. Tente novamente.");
                 }
                 
                 if (executando && opcao != 0) {
@@ -70,7 +70,7 @@ public class Main {
                 }
                 
             } catch (NumberFormatException e) {
-                System.out.println("\n✗ Digite um número válido.");
+                System.out.println("\nX - Digite um número válido.");
                 System.out.println("Pressione ENTER para continuar...");
                 scanner.nextLine();
             } catch (ItemIndisponivelException | LimiteEmprestimoException | 
@@ -79,7 +79,7 @@ public class Main {
                 System.out.println("Pressione ENTER para continuar...");
                 scanner.nextLine();
             } catch (Exception e) {
-                System.out.println("\n✗ Erro inesperado: " + e.getMessage());
+                System.out.println("\nX - Erro inesperado: " + e.getMessage());
                 System.out.println("Pressione ENTER para continuar...");
                 scanner.nextLine();
             }
@@ -253,13 +253,13 @@ public class Main {
     }
     
     private static void inicializarDados(BibliotecaService biblioteca) {
-        // Usuários de exemplo
+        
         biblioteca.cadastrarUsuario(new Aluno("Maria Silva", 20231001L, "Análise e Desenvolvimento"));
         biblioteca.cadastrarUsuario(new Aluno("João Santos", 20231002L, "Sistemas para Internet"));
         biblioteca.cadastrarUsuario(new Professor("Dr. Carlos Lima", 10001L, "Computação"));
         biblioteca.cadastrarUsuario(new Funcionario("Ana Costa", 30001L, "Biblioteca"));
         
-        // Itens de exemplo
+        
         biblioteca.cadastrarItem(new Livro("Clean Code", "Robert Martin", "LIV001", 9780132350884L));
         biblioteca.cadastrarItem(new Livro("Padrões de Projeto", "Gang of Four", "LIV002", 9788573076102L));
         biblioteca.cadastrarItem(new Livro("Java: Como Programar", "Deitel", "LIV003", 9788543004815L));
@@ -268,7 +268,7 @@ public class Main {
         biblioteca.cadastrarItem(new Tese("Inteligência Artificial em Saúde", "TES001", 
                                          "Pedro Oliveira", "Dra. Maria Santos", 2024));
         
-        System.out.println("\n✓ Dados de exemplo carregados!");
+        System.out.println("\n Dados de exemplo carregados!");
         System.out.println("  - 4 usuários cadastrados");
         System.out.println("  - 6 itens no acervo");
     }

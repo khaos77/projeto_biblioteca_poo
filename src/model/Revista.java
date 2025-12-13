@@ -5,7 +5,7 @@ public class Revista extends ItemBiblioteca {
     private final String mesAno;
 
     public Revista(String titulo, String codigo, int edicao, String mesAno) {
-        super(titulo, codigo, 7); // 7 dias para revistas
+        super(titulo, codigo, 7); 
         this.edicao = edicao;
         this.mesAno = mesAno;
     }
@@ -20,7 +20,7 @@ public class Revista extends ItemBiblioteca {
 
     @Override
     public double calcularMultaPorDia() {
-        return 0.50; // R$ 0,50 por dia de atraso
+        return 0.50; 
     }
 
     @Override

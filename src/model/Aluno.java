@@ -4,7 +4,7 @@ public class Aluno extends Usuario {
     private final String curso;
 
     public Aluno(String nome, long matricula, String curso) {
-        super(nome, matricula, 3); // Alunos podem pegar até 3 itens
+        super(nome, matricula, 3); 
         this.curso = curso;
     }
 
@@ -14,7 +14,7 @@ public class Aluno extends Usuario {
 
     @Override
     public double aplicarDescontoMulta(double multaOriginal) {
-        return multaOriginal; // Alunos não têm desconto
+        return multaOriginal; 
     }
 
     @Override

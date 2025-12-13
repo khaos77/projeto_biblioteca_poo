@@ -53,7 +53,7 @@ public abstract class Usuario {
         return soma;
     }
 
-    // Método abstrato - cada tipo de usuário tem desconto diferente
+
     public abstract double aplicarDescontoMulta(double multaOriginal);
 
     @Override
